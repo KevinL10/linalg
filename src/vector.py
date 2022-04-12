@@ -19,9 +19,11 @@ class Vector:
 		return len(self.__data)
 
 
-	def __getitem__(self, idx):
-		return self.__data[idx]
+	def __setitem__(self, key, value):
+		self.__data[key] = value
 
+	def __getitem__(self, key):
+		return self.__data[key]
 
 	# vector addition (u + v)
 	def __add__(self, v):
@@ -44,6 +46,9 @@ class Vector:
 	def __rmul__(self, c):
 		return self * c
 
+	# returns vector as a list copy
+	def list(self):
+		return [i for i in self.__data]
 
 	# dot product (u dot v)
 	def dot(self, v):

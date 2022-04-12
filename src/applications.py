@@ -24,3 +24,15 @@ def difference_sum_matrices():
 	diffMatrix = Matrix([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])
 	
 	assert diffMatrix * (sumMatrix * v) == v
+
+
+# identity matrix * vector
+def identity_mul():
+	identity = Matrix.identity(3)
+	v = Vector([2, -4, 5])
+
+	assert v == identity * v
+
+def rotate_by_45():
+	v = Vector([5, 7])
+	return Matrix([[1/math.sqrt(2), -1/math.sqrt(2)], [1/math.sqrt(2), 1/math.sqrt(2)]]) * v
