@@ -20,10 +20,38 @@ class Matrix:
 		return self.__data[idx][:]
 
 
-	# multiply by a vector (A * x)
-	def __mul__(self, v):
-		assert len(self.__data[0]) == len(v)
+	# either multiply by scalar, vector or matrix
+	def __mul__(self, x):
+		if isinstance(x, int) or isinstance(x, float):
+			return self.__mul_scalar(x)
+
+		if isinstance(x, Vector):
+			return self.__mul_vector(x)
+
+		return self.__mul_matrix(x)
+
+
+	# multiply all elements by a scalar (self * c)
+	def __mul_scalar(self, c):
+		rows, cols = self.size()
+		return Matrix([[self.__data[i][a] * c for a in range(cols)] for i in range(rows)])
+
+
+	# multiply by a vector (self * x)
+	def __mul_vector(self, v):
+		assert(len(self.__data[0]) == len(v))
 		return Vector([Vector(self.__data[i]).dot(v) for i in range(len(self.__data))])
+
+
+	# multiply by a vector (self * A)
+	def __mul_matrix(self, A):
+		assert(len(self.__data[0]) == A.size()[0])
+		
+		# (m x n) and (n x p) matrices
+		m, n = self.size()
+		p = len(A[0])
+
+		return Matrix([[Vector(self.__data[a]).dot(Vector(A.column(b))) for b in range(p)] for a in range(m)])
 
 
 	# returns the column at idx
