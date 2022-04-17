@@ -39,13 +39,21 @@ class Matrix:
 
 	# multiply by a vector (self * x)
 	def __mul_vector(self, v):
-		assert(len(self.__data[0]) == len(v))
+		assert len(self.__data[0]) == len(v)
 		return Vector([Vector(self.__data[i]).dot(v) for i in range(len(self.__data))])
+
+
+	# matrix addition (self + A)
+	def __add__(self, A):
+		assert self.size() == A.size()
+		rows, cols = self.size()
+
+		return Matrix([[self.__data[i][a] + A[i][a] for a in range(cols)] for i in range(rows)])
 
 
 	# multiply by a vector (self * A)
 	def __mul_matrix(self, A):
-		assert(len(self.__data[0]) == A.size()[0])
+		assert len(self.__data[0]) == A.size()[0]
 		
 		# (m x n) and (n x p) matrices
 		m, n = self.size()

@@ -38,10 +38,20 @@ class TestMatrix(unittest.TestCase):
 		expected = Matrix([[5, 6], [1, 0]])
 		self.assertEqual(expected, m1 * m2)
 
+		m1 = Matrix([[0], [1], [2]])
+		m2 = Matrix([[1, 2, 3]])
+		expected = Matrix([[0, 0, 0], [1, 2, 3], [2, 4, 6]])
+		self.assertEqual(expected, m1 * m2)
+
 	def test_multiply_matrix_nonsquare(self):
 		A = Matrix([[5, -1, -4], [3, 0, 1]])
 		expected = Matrix([[4, -2, -10], [20, -1, 1], [12, 0, 4], [14, -1, -1]])
 		self.assertEqual(expected, self.m2 * A)
+
+	def test_add(self):
+		A = Matrix([[0, 3], [-2, 1], [4, 5], [-8, 1]])
+		expected = Matrix([[2, 1], [-1, 6], [4, 9], [-7, 4]])
+		self.assertEqual(expected, self.m2 + A)
 
 	def test_get_column(self):
 		self.assertEqual([1, -1, 0], self.m1.column(0))

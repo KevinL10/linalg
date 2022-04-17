@@ -1,2 +1,4 @@
 # linalg
-Implementing linear algebra features...
+
+A pure python linear algebra library.
+
