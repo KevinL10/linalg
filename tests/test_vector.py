@@ -1,6 +1,6 @@
 import pytest
-from linalg.vector import *
-from linalg.applications import *
+from linalg.vector import Vector
+from linalg.applications import cauchy_schwarz, triangle_inequality
 
 
 @pytest.fixture

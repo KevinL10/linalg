@@ -2,6 +2,7 @@ import math
 from .vector import Vector
 from .matrix import Matrix
 
+
 # angle between v and w (in radians)
 def angle_between(v, w):
     return math.acos(v.dot(w) / (v.length() * w.length()))
