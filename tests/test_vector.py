@@ -1,48 +1,54 @@
-# import src modules...
-import sys
-sys.path.append('../src/')
-
-import unittest
-from vector import *
-from applications import *
+import pytest
+from linalg.vector import *
+from linalg.applications import *
 
 
-class TestVector(unittest.TestCase):
-	def setUp(self):
-		self.v1 = Vector([5, -2, 17, 4])
-		self.v2 = Vector([6, -12, 3, -4])
+@pytest.fixture
+def v1():
+    return Vector([5, -2, 17, 4])
 
-	def test_str(self):
-		self.assertEqual("[5, -2, 17, 4]", str(self.v1))
 
-	def test_len(self):
-		self.assertEqual(4, len(self.v1))
+@pytest.fixture
+def v2():
+    return Vector([6, -12, 3, -4])
 
-	def test_get_item(self):
-		self.assertEqual(17, self.v1[2])
-		self.assertEqual(6, self.v2[0])
 
-	def test_add(self):
-		self.assertEqual(Vector([11, -14, 20, 0]), self.v1 + self.v2)
-		self.assertEqual(Vector([11, -14, 20, 0]), self.v2 + self.v1)
+def test_str(v1):
+    assert "[5, -2, 17, 4]" == str(v1)
 
-	def test_sub(self):
-		self.assertEqual(Vector([-1, 10, 14, 8]), self.v1 - self.v2)
-		self.assertEqual(Vector([1, -10, -14, -8]), self.v2 - self.v1)
 
-	def test_mul(self):
-		self.assertEqual(Vector([15, -6, 51, 12]), self.v1 * 3)
-		self.assertEqual(Vector([-12, 24, -6, 8]), -2 * self.v2)
+def test_len(v1):
+    assert 4 == len(v1)
 
-	def test_dot(self):
-		self.assertEqual(5 * 6 + -2 * -12 + 17 * 3 + 4 * -4, self.v1.dot(self.v2))
 
-	def test_length(self):
-		self.assertAlmostEqual(18.2756668825, self.v1.length())
+def test_get_item(v1, v2):
+    assert 17 == v1[2]
+    assert 6 == v2[0]
 
-	def test_inequalities(self):
-		self.assertTrue(cauchy_schwarz(self.v1, self.v2))
-		self.assertTrue(triangle_inequality(self.v1, self.v2))
 
-if __name__ == '__main__':
-    unittest.main()
+def test_add(v1, v2):
+    assert Vector([11, -14, 20, 0]) == v1 + v2
+    assert Vector([11, -14, 20, 0]) == v2 + v1
+
+
+def test_sub(v1, v2):
+    assert Vector([-1, 10, 14, 8]) == v1 - v2
+    assert Vector([1, -10, -14, -8]) == v2 - v1
+
+
+def test_mul(v1, v2):
+    assert Vector([15, -6, 51, 12]) == v1 * 3
+    assert Vector([-12, 24, -6, 8]) == -2 * v2
+
+
+def test_dot(v1, v2):
+    assert 5 * 6 + -2 * -12 + 17 * 3 + 4 * -4 == v1.dot(v2)
+
+
+def test_length(v1):
+    assert abs(v1.length() - 18.2756668825) < 1e6
+
+
+def test_inequalities(v1, v2):
+    assert cauchy_schwarz(v1, v2)
+    assert triangle_inequality(v1, v2)

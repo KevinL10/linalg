@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name="linalg2",
+    name="linalg",
     version="0.0.1",
     author="KevinL10",
     author_email="kevinsliu0@gmail.com",
